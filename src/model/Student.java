@@ -7,7 +7,7 @@ public class Student {
     private long stud_ID;
     private String name;
     private String surname;
-    private String personalCode; 
+    private String personalCode;
 
     // No-argument constructor
     public Student() {
@@ -19,15 +19,15 @@ public class Student {
     }
 
     // Argument constructor
-    public Student(String name, String surname, String personalCode) {
+    public Student(String inputName, String inputSurname, String inputPersonalCode) {
         idCounter++;
         this.stud_ID = idCounter;
-        setName(name);
-        setSurname(surname);
-        setPersonalCode(personalCode);
+        setName(inputName);
+        setSurname(inputSurname);
+        setPersonalCode(inputPersonalCode);
     }
 
-    // GET method
+    // Get method
     public long getStudentID() {
         return stud_ID;
     }
@@ -44,26 +44,29 @@ public class Student {
         return personalCode;
     }
 
-    // SET method
-    public void setName(String name) {
-        if(name != null && name.matches("[a-zA-Z]+"))
-            this.name = name;
-        else
+    // Set method
+    public void setName(String inputName) {
+        if (inputName != null && inputName.matches("[a-zA-Z]+")) {
+            this.name = inputName;
+        } else {
             this.name = "Unknown";
+        }
     }
 
-    public void setSurname(String surname) {
-        if(surname != null && surname.matches("[a-zA-Z]+"))
-            this.surname = surname;
-        else
+    public void setSurname(String inputSurname) {
+        if (inputSurname != null && inputSurname.matches("[a-zA-Z]+")) {
+            this.surname = inputSurname;
+        } else {
             this.surname = "Unknown";
+        }
     }
 
-    public void setPersonalCode(String personalCode) {
-        if(personalCode != null && personalCode.matches("\\d{11}"))
-            this.personalCode = personalCode;
-        else
+    public void setPersonalCode(String inputPersonalCode) {
+        if (inputPersonalCode != null && inputPersonalCode.matches("\\d{11}")) {
+            this.personalCode = inputPersonalCode;
+        } else {
             this.personalCode = "00000000000";
+        }
     }
 
     // toString method

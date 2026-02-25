@@ -19,49 +19,49 @@ public class Professor {
     }
 
     // Argument constructor
-    public Professor(String name, String surname, String degree) {
+    public Professor(String inputName, String inputSurname, String inputDegree) {
         idCounter++;
         this.p_ID = idCounter;
-        setName(name);
-        setSurname(surname);
-        setDegree(degree);
+        setName(inputName);
+        setSurname(inputSurname);
+        setDegree(inputDegree);
     }
 
     // Get method
     public long getProfID() {
         return p_ID;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public String getSurname() {
         return surname;
     }
-    
+
     public String getDegree() {
         return degree;
     }
 
     // Set method
-    public void setName(String name) {
-        if(name != null && name.matches("[a-zA-Z]+"))
-            this.name = name;
+    public void setName(String inputName) {
+        if (inputName != null && inputName.matches("[a-zA-Z]+"))
+            this.name = inputName;
         else
             this.name = "Unknown";
     }
 
-    public void setSurname(String surname) {
-        if(surname != null && surname.matches("[a-zA-Z]+"))
-            this.surname = surname;
+    public void setSurname(String inputSurname) {
+        if (inputSurname != null && inputSurname.matches("[a-zA-Z]+"))
+            this.surname = inputSurname;
         else
             this.surname = "Unknown";
     }
 
-    public void setDegree(String degree) {
-        if(degree != null && degree.length() > 1)
-            this.degree = degree;
+    public void setDegree(String inputDegree) {
+        if (inputDegree != null && inputDegree.length() > 1)
+            this.degree = inputDegree;
         else
             this.degree = "B";
     }
