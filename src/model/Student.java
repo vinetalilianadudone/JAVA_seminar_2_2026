@@ -15,7 +15,7 @@ public class Student {
         this.stud_ID = idCounter;
         this.name = "Unknown";
         this.surname = "Unknown";
-        this.personalCode = "00000000000";
+        this.personalCode = "000000-00000";
     }
 
     // Argument constructor
@@ -46,26 +46,26 @@ public class Student {
 
     // Set method
     public void setName(String inputName) {
-        if (inputName != null && inputName.matches("[a-zA-Z]+")) {
-            this.name = inputName;
+        if (inputName != null && inputName.matches("^[\\p{L} .'-]+$")) {
+            this.name = inputName.trim(); 
         } else {
             this.name = "Unknown";
         }
     }
 
     public void setSurname(String inputSurname) {
-        if (inputSurname != null && inputSurname.matches("[a-zA-Z]+")) {
-            this.surname = inputSurname;
+        if (inputSurname != null && inputSurname.matches("^[\\p{L} .'-]+$")) {
+            this.surname = inputSurname.trim();
         } else {
             this.surname = "Unknown";
         }
     }
 
     public void setPersonalCode(String inputPersonalCode) {
-        if (inputPersonalCode != null && inputPersonalCode.matches("\\d{11}")) {
+        if (inputPersonalCode != null && inputPersonalCode.matches("^\\d{6}-\\d{5}$")) {
             this.personalCode = inputPersonalCode;
         } else {
-            this.personalCode = "00000000000";
+            this.personalCode = "000000-00000";
         }
     }
 

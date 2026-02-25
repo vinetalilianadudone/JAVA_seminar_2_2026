@@ -46,17 +46,19 @@ public class Professor {
 
     // Set method
     public void setName(String inputName) {
-        if (inputName != null && inputName.matches("[a-zA-Z]+"))
-            this.name = inputName;
-        else
+        if (inputName != null && inputName.matches("^[\\p{L} .'-]+$")) {
+            this.name = inputName.trim(); 
+        } else {
             this.name = "Unknown";
+        }
     }
 
     public void setSurname(String inputSurname) {
-        if (inputSurname != null && inputSurname.matches("[a-zA-Z]+"))
-            this.surname = inputSurname;
-        else
+        if (inputSurname != null && inputSurname.matches("^[\\p{L} .'-]+$")) {
+            this.surname = inputSurname.trim();
+        } else {
             this.surname = "Unknown";
+        }
     }
 
     public void setDegree(String inputDegree) {
