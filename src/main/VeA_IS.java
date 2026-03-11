@@ -12,6 +12,8 @@ import java.util.Comparator;
  * https://www.infoworld.com/article/2258024/java-challengers-5-sorting-with-comparable-and-comparator-in-java.html
  */
 
+// CRUB: C - create, R - retrieve, U - update, D - delete
+
 public class VeA_IS {
 
 	// Statisks saraksts
@@ -61,9 +63,9 @@ public class VeA_IS {
         gradeLists.add(new Grade(8, stud1, course2));
         gradeLists.add(new Grade(7, stud1, course3));
         gradeLists.add(new Grade(10, stud2, course1));
-        gradeLists.add(new Grade(6, stud2, course2));
-        gradeLists.add(new Grade(5, stud3, course3));
-        gradeLists.add(new Grade(4, stud3, course1));
+        gradeLists.add(new Grade(8, stud2, course2));
+        gradeLists.add(new Grade(7, stud3, course3));
+        gradeLists.add(new Grade(8, stud3, course1));
         gradeLists.add(new Grade());
 
         System.out.println("\n--- Average grade per student ---");
@@ -95,6 +97,19 @@ public class VeA_IS {
         for (Person p : mixed) {
             System.out.println(p);
         }
+
+        // CRUD demonstrācija
+        System.out.println("\n--- CRUD demonstration ---");
+        Student newStudent = new Student("Jānis", "Bērziņš", "111111-11111");
+
+        createStudent(newStudent);
+        retrieveStudents();
+
+        updateStudent(newStudent, "Jānis", "Ozols");
+        retrieveStudents();
+
+        deleteStudent(newStudent);
+        retrieveStudents();
     }
 
     // Vidēja atzīme studentam
@@ -147,5 +162,73 @@ public class VeA_IS {
             }
         }
         return count;
+    }
+
+    // CRUD metode
+    // C - create
+    public static void createStudent(Student s) {
+        studentLists.add(s);
+    }
+
+    public static void createProfessor(Professor p) {
+        profLists.add(p);
+    }
+
+    public static void createCourse(Course c) {
+        courseLists.add(c);
+    }
+
+    public static void createGrade(Grade g) {
+        gradeLists.add(g);
+    }
+
+    // R - retrieve
+    public static void retrieveStudents() {
+        for (Student s : studentLists) {
+            System.out.println(s);
+        }
+    }
+
+    public static void retrieveProfessors() {
+        for (Professor p : profLists) {
+            System.out.println(p);
+        }
+    }
+
+    public static void retrieveCourses() {
+        for (Course c : courseLists) {
+            System.out.println(c);
+        }
+    }
+
+    public static void retrieveGrades() {
+        for (Grade g : gradeLists) {
+            System.out.println(g);
+        }
+    }
+
+    // U - update
+    public static void updateStudent(Student s, String name, String surname) {
+        if (studentLists.contains(s)) {
+            s.setName(name);
+            s.setSurname(surname);
+        }
+    }
+
+    // D - delete
+    public static void deleteStudent(Student s) {
+        studentLists.remove(s);
+    }
+
+    public static void deleteProfessor(Professor p) {
+        profLists.remove(p);
+    }
+
+    public static void deleteCourse(Course c) {
+        courseLists.remove(c);
+    }
+
+    public static void deleteGrade(Grade g) {
+        gradeLists.remove(g);
     }
 }
