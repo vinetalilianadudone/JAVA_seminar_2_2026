@@ -19,12 +19,12 @@ public class Course {
     }
 
     // Argument constructor
-    public Course(String inputTitle, int inputCreditPoints, Professor inputProfessor) {
+    public Course(String title, int creditPoints, Professor professor) {
         idCounter++;
         this.c_ID = idCounter;
-        setTitle(inputTitle);
-        setCreditPoints(inputCreditPoints);
-        setProfessor(inputProfessor);
+        this.title = title;
+        this.creditPoints = creditPoints;
+        this.professor = professor;
     }
 
     // Get method
@@ -59,18 +59,10 @@ public class Course {
             this.creditPoints = 3;
     }
 
-    public void setProfessor(Professor inputProfessor) {
-        if (inputProfessor != null)
-            this.professor = inputProfessor;
-        else
-            this.professor = new Professor();
-    }
-
     // toString method
     public String toString() {
-        return "Course ID: " + c_ID +
-                ", Title: " + title +
+        return "Course ID: " + c_ID + ", Title: " + title +
                 ", Credit Points: " + creditPoints +
-                ", Professor: " + professor.getName() + " " + professor.getSurname();
+                ", Professor: " + professor;
     }
 }

@@ -19,12 +19,12 @@ public class Grade {
     }
 
     // Argument constructor
-    public Grade(int inputValue, Student inputStudent, Course inputCourse) {
+    public Grade(int value, Student student, Course course) {
         idCounter++;
         this.g_ID = idCounter;
-        setValue(inputValue);
-        setStudent(inputStudent);
-        setCourse(inputCourse);
+        this.value = value;
+        this.student = student;
+        this.course = course;
     }
 
     // Get method
@@ -68,9 +68,8 @@ public class Grade {
 
     // toString method
     public String toString() {
-        return "Grade ID: " + g_ID +
-                ", Value: " + value +
-                ", Student: " + student.getName() + " " + student.getSurname() +
+        return "Grade ID: " + g_ID + ", Value: " + value +
+                ", Student: " + student +
                 ", Course: " + course.getTitle();
     }
 }
