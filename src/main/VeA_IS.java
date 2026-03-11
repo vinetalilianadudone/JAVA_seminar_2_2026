@@ -9,9 +9,12 @@ import java.util.Comparator;
  * moodle.venta.lv, kursa JAVA programmēšana, teorija
  * https://www.geeksforgeeks.org/java
  * https://prakashbtech87.medium.com/java-project-student-management-face85c55c3c
+ * https://www.infoworld.com/article/2258024/java-challengers-5-sorting-with-comparable-and-comparator-in-java.html
  */
+
 public class VeA_IS {
 
+	// Statisks saraksts
     public static ArrayList<Professor> profLists = new ArrayList<>();
     public static ArrayList<Student> studentLists = new ArrayList<>();
     public static ArrayList<Course> courseLists = new ArrayList<>();
@@ -19,35 +22,41 @@ public class VeA_IS {
 
     public static void main(String[] args) {
 
-        // Izveido datus
+        // Izveido trīs profesoru objektus - divus ar datiem un vienu ar noklusējuma vērtībām
         Professor prof1 = new Professor("Artūrs", "Smits", "PhD");
         Professor prof2 = new Professor("Anna", "Johnson", "Dr");
         Professor prof3 = new Professor();
 
+        // Pievieno profesorus kopīgajam sarakstam
         profLists.add(prof1);
         profLists.add(prof2);
         profLists.add(prof3);
 
+        // Izveido četrus studentu objektus - trīs ar datiem un vienu ar noklusējuma vērtībām
         Student stud1 = new Student("Pēteris", "Parkeris", "123456-78901");
         Student stud2 = new Student("Marta", "Dzelme", "109876-54321");
-        Student stud3 = new Student("Vineta Liliana", "Dudone", "160504-21644");
+        Student stud3 = new Student("Vineta Liliana", "Dudone", "160504-12456");
         Student stud4 = new Student();
 
+        // Pievieno studentus kopīgajam sarakstam
         studentLists.add(stud1);
         studentLists.add(stud2);
         studentLists.add(stud3);
         studentLists.add(stud4);
 
+        // Izveido četrus kursu objektus - trīs ar datiem un vienu ar noklusējuma vērtībām
         Course course1 = new Course("Java Programming", 6, prof1);
         Course course2 = new Course("Database Systems", 4, prof1);
         Course course3 = new Course("Web Development", 3, prof2);
         Course course4 = new Course();
 
+        // Pievieno kursus kopīgajam sarakstam
         courseLists.add(course1);
         courseLists.add(course2);
         courseLists.add(course3);
         courseLists.add(course4);
 
+        // Izveido atzīmes un pievieno tās sarakstam 
         gradeLists.add(new Grade(9, stud1, course1));
         gradeLists.add(new Grade(8, stud1, course2));
         gradeLists.add(new Grade(7, stud1, course3));
@@ -125,6 +134,7 @@ public class VeA_IS {
                 count++;
             }
         }
+        // Atgriež 0, citādi aprēķina vidējo
         return count == 0 ? 0 : (double) sum / count;
     }
 
@@ -132,8 +142,9 @@ public class VeA_IS {
     public static int countCoursesForProfessor(Professor p) {
         int count = 0;
         for (Course c : courseLists) {
-            if (c.getProfessor() == p) 
+            if (c.getProfessor() == p) { 
             	count++;
+            }
         }
         return count;
     }

@@ -31,6 +31,7 @@ public class Professor extends Person {
         return degree;
     }
 
+    // Set method
     public void setDegree(String inputDegree) {
         if (inputDegree != null && inputDegree.length() > 1)
             this.degree = inputDegree;

@@ -17,7 +17,7 @@ public class Person {
         setSurname(inputSurname);
     }
 
-    // GET method
+    // Get method
     public String getName() {
         return name;
     }
@@ -26,7 +26,7 @@ public class Person {
         return surname;
     }
 
-    // SET method
+    // Set method
     public void setName(String inputName) {
         if (inputName != null && inputName.matches("^[\\p{L}][\\p{L}\\s\\-']+$"))
             this.name = inputName;
