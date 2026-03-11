@@ -12,7 +12,7 @@ import java.util.Comparator;
  * https://www.infoworld.com/article/2258024/java-challengers-5-sorting-with-comparable-and-comparator-in-java.html
  */
 
-// CRUB: C - create, R - retrieve, U - update, D - delete
+// CRUD: C - create, R - retrieve, U - update, D - delete
 
 public class VeA_IS {
 
