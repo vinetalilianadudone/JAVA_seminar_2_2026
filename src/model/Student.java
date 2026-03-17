@@ -2,46 +2,33 @@ package model;
 
 public class Student extends Person {
 
-    private static long idCounter = 10000;
-    private long stud_ID;
-    private String personalCode;
+	// variables
+    private long studentId;
+    private static long studentCounter = 10000;
 
-    // No-argument constructor
+    // get and set methods
+    public long getStudentId() { 
+    	return studentId; 
+    	}
+
+    private void generateId() {
+        studentId = studentCounter++;
+    }
+
+    // no-argument constructor
     public Student() {
         super();
-        idCounter++;
-        this.stud_ID = idCounter;
-        this.personalCode = "000000-00000";
+        generateId();
     }
 
-    // Argument constructor
-    public Student(String name, String surname, String personalCode) {
-        super(name, surname);
-        idCounter++;
-        this.stud_ID = idCounter;
-        this.personalCode = personalCode;
+    // argument constructor
+    public Student(String name, String surname, String code) {
+        super(name, surname, code);
+        generateId();
     }
 
-    // Get method
-    public long getStudentID() {
-        return stud_ID;
-    }
-
-    public String getPersonalCode() {
-        return personalCode;
-    }
-
-    // Set method
-    public void setPersonalCode(String inputPersonalCode) {
-        if (inputPersonalCode != null && inputPersonalCode.matches("^\\d{6}-\\d{5}$")) {
-            this.personalCode = inputPersonalCode;
-        } else {
-            this.personalCode = "000000-00000";
-        }
-    }
-
-    // toString method
+    // to string method
     public String toString() {
-        return "Student ID: " + stud_ID + ", " + super.toString() + ", Personal Code: " + personalCode;
+        return studentId + ": " + super.toString();
     }
 }

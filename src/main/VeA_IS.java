@@ -1,234 +1,196 @@
 package main;
 
+import java.util.*;
 import model.*;
-import java.util.ArrayList;
-import java.util.Comparator;
 
 /* Lai izpildītu uzdevums, tika izmantota informācija par JAVA no: 
  * https://www.w3schools.com/java
  * moodle.venta.lv, kursa JAVA programmēšana, teorija
  * https://www.geeksforgeeks.org/java
+ * https://www.w3schools.com/java/ref_arrays_sort.asp
  * https://prakashbtech87.medium.com/java-project-student-management-face85c55c3c
  * https://www.infoworld.com/article/2258024/java-challengers-5-sorting-with-comparable-and-comparator-in-java.html
  */
 
-// CRUD: C - create, R - retrieve, U - update, D - delete
-
 public class VeA_IS {
 
-	// Statisks saraksts
-    public static ArrayList<Professor> profLists = new ArrayList<>();
-    public static ArrayList<Student> studentLists = new ArrayList<>();
-    public static ArrayList<Course> courseLists = new ArrayList<>();
-    public static ArrayList<Grade> gradeLists = new ArrayList<>();
+    public static ArrayList<Student> students = new ArrayList<>();
+    public static ArrayList<Professor> professors = new ArrayList<>();
+    public static ArrayList<Course> courses = new ArrayList<>();
+    public static ArrayList<Grade> grades = new ArrayList<>();
 
     public static void main(String[] args) {
+        try {
+            // studenti
+            Student s1 = createStudent("Jānis","Bērziņš","010101-12345");
+            Student s2 = createStudent("Anna","Kalniņa","020202-23456");
+            Student s3 = createStudent("Pēteris","Ozols","030303-45678");
 
-        // Izveido trīs profesoru objektus - divus ar datiem un vienu ar noklusējuma vērtībām
-        Professor prof1 = new Professor("Artūrs", "Smits", "PhD");
-        Professor prof2 = new Professor("Anna", "Johnson", "Dr");
-        Professor prof3 = new Professor();
+            // professori
+            Professor p1 = createProfessor("Andris","Liepiņš","030303-34567", ProfessorDegree.phd);
+            Professor p2 = createProfessor("Māris","Kļaviņš","040404-56789", ProfessorDegree.master);
 
-        // Pievieno profesorus kopīgajam sarakstam
-        profLists.add(prof1);
-        profLists.add(prof2);
-        profLists.add(prof3);
+            // kursi
+            Course c1 = createCourse("Java", (byte)6, p1);
+            Course c2 = createCourse("Matemātika", (byte)4, p1);
+            Course c3 = createCourse("Fizika", (byte)5, p2);
 
-        // Izveido četrus studentu objektus - trīs ar datiem un vienu ar noklusējuma vērtībām
-        Student stud1 = new Student("Pēteris", "Parkeris", "123456-78901");
-        Student stud2 = new Student("Marta", "Dzelme", "109876-54321");
-        Student stud3 = new Student("Vineta Liliana", "Dudone", "160504-12456");
-        Student stud4 = new Student();
+            // atzīmes
+            createGrade(8,s1,c1);
+            createGrade(6,s1,c2);
+            createGrade(7,s1,c3);
 
-        // Pievieno studentus kopīgajam sarakstam
-        studentLists.add(stud1);
-        studentLists.add(stud2);
-        studentLists.add(stud3);
-        studentLists.add(stud4);
+            createGrade(10,s2,c1);
+            createGrade(9,s2,c3);
 
-        // Izveido četrus kursu objektus - trīs ar datiem un vienu ar noklusējuma vērtībām
-        Course course1 = new Course("Java Programming", 6, prof1);
-        Course course2 = new Course("Database Systems", 4, prof1);
-        Course course3 = new Course("Web Development", 3, prof2);
-        Course course4 = new Course();
+            createGrade(5,s3,c2);
+            createGrade(6,s3,c3);
 
-        // Pievieno kursus kopīgajam sarakstam
-        courseLists.add(course1);
-        courseLists.add(course2);
-        courseLists.add(course3);
-        courseLists.add(course4);
+            // izvade
+            System.out.println("STUDENTI");
+            for(Student s : students) {
+                printStudentFull(s);
+            }
 
-        // Izveido atzīmes un pievieno tās sarakstam 
-        gradeLists.add(new Grade(9, stud1, course1));
-        gradeLists.add(new Grade(8, stud1, course2));
-        gradeLists.add(new Grade(7, stud1, course3));
-        gradeLists.add(new Grade(10, stud2, course1));
-        gradeLists.add(new Grade(8, stud2, course2));
-        gradeLists.add(new Grade(7, stud3, course3));
-        gradeLists.add(new Grade(8, stud3, course1));
-        gradeLists.add(new Grade());
+            System.out.println("\nPROFESORI");
+            for(Professor p : professors) {
+                printProfessorFull(p);
+            }
 
-        System.out.println("\n--- Average grade per student ---");
-        for (Student s : studentLists) {
-            System.out.println(s + " | Avg grade: " + calcAvgGrade(s));
-            System.out.println("Weighted Avg grade: " + calcWeightedAvgGrade(s));
+            // sakārtošana
+            sortStudents();
+            System.out.println("\nSAKĀRTOTI STUDENTI PĒC ATZĪMĒM");
+            for(Student s : students) {
+                System.out.println(s + " | vidējā: " + avgGrade(s));
+            }
+
+        } catch(Exception e) {
+            System.out.println("Kļūda: " + e.getMessage());
         }
-
-        System.out.println("\n--- Average grade per course ---");
-        for (Course c : courseLists) {
-            System.out.println(c + " | Avg grade: " + calcAvgGradeForCourse(c));
-        }
-
-        System.out.println("\n--- Professor course count ---");
-        for (Professor p : profLists) {
-            System.out.println(p + " | Courses taught: " + countCoursesForProfessor(p));
-        }
-
-        System.out.println("\n--- Students sorted by average grade ---");
-        studentLists.sort(Comparator.comparingDouble(VeA_IS::calcAvgGrade).reversed());
-        for (Student s : studentLists) {
-            System.out.println(s + " | Avg grade: " + calcAvgGrade(s));
-        }
-
-        System.out.println("\n--- Mixed Person list (Polymorphism) ---");
-        ArrayList<Person> mixed = new ArrayList<>();
-        mixed.addAll(studentLists);
-        mixed.addAll(profLists);
-        for (Person p : mixed) {
-            System.out.println(p);
-        }
-
-        // CRUD demonstrācija
-        System.out.println("\n--- CRUD demonstration ---");
-        Student newStudent = new Student("Jānis", "Bērziņš", "111111-11111");
-
-        createStudent(newStudent);
-        retrieveStudents();
-
-        updateStudent(newStudent, "Jānis", "Ozols");
-        retrieveStudents();
-
-        deleteStudent(newStudent);
-        retrieveStudents();
     }
 
-    // Vidēja atzīme studentam
-    public static double calcAvgGrade(Student s) {
-        int sum = 0;
+    // CRUD
+    public static Student createStudent(String n,String s,String pc) throws Exception {
+        Student st = new Student(n,s,pc);
+        students.add(st);
+        return st;
+    }
+
+    public static Student getStudent(long id) throws Exception {
+        for(Student s:students) 
+            if(s.getStudentId()==id) 
+                return s;
+        throw new Exception("Students neeksistē");
+    }
+
+    public static void updateStudent(long id,String n,String s) throws Exception {
+        Student st = getStudent(id);
+        st.setName(n);
+        st.setSurname(s);
+    }
+
+    public static void deleteStudent(long id) throws Exception {
+        students.remove(getStudent(id));
+    }
+
+    public static Professor createProfessor(String n,String s,String pc,ProfessorDegree d) {
+        Professor p = new Professor(n,s,pc,d);
+        professors.add(p);
+        return p;
+    }
+
+    public static Course createCourse(String t,byte cp,Professor p) {
+        Course c = new Course(t,cp,p);
+        courses.add(c);
+        return c;
+    }
+
+    public static Grade createGrade(int v,Student s,Course c) {
+        Grade g = new Grade(v,s,c);
+        grades.add(g);
+        return g;
+    }
+
+    public static void deleteGrade(long id) throws Exception {
+        Iterator<Grade> it = grades.iterator();
+        while(it.hasNext()){
+            Grade g = it.next();
+            if(g.getGradeId() == id){
+                it.remove();
+                return;
+            }
+        }
+        throw new Exception("Atzīme neeksistē");
+    }
+
+    public static void printStudentFull(Student s) {
+        System.out.println(s);
+
+        for(Grade g : grades) {
+            if(g.getStudent().equals(s)) {
+                System.out.println("  -> " + g.getCourse().getTitle() + ": " + g.getGradeValue());
+            }
+        }
+
+        System.out.println("Vidējā: " + avgGrade(s));
+        System.out.println("Svērtais: " + weightedAvg(s));
+    }
+    
+    public static void printProfessorFull(Professor p) {
+        System.out.println(p);
+
+        for(Course c : courses) {
+            if(c.getProfessor().equals(p)) {
+                System.out.println("  -> māca: " + c.getTitle());
+            }
+        }
+
+        System.out.println("Kursu skaits: " + countCourses(p));
+    }
+    
+    // aprēķini
+    public static double avgGrade(Student s) {
+        double sum=0; 
+        int count=0;
+        for(Grade g:grades) 
+            if(g.getStudent().equals(s)){ 
+                sum += g.getGradeValue(); 
+                count++; 
+            }
+        return count == 0 ? 0.0 : sum/count;
+    }
+
+    public static double weightedAvg(Student s) {
+        double sum=0; double credits=0;
+        for(Grade g:grades){
+            if(g.getStudent().equals(s)){
+                sum += g.getGradeValue()*g.getCourse().getCreditPoints();
+                credits += g.getCourse().getCreditPoints();
+            }
+        }
+        return credits == 0 ? 0.0 : sum/credits;
+    }
+
+    public static double avgCourse(Course c) {
+        double sum = 0; 
         int count = 0;
-        for (Grade g : gradeLists) {
-            if (g.getStudent() == s) {
-                sum += g.getValue();
+        for(Grade g:grades) 
+            if(g.getCourse().equals(c)){ 
+                sum += g.getGradeValue(); 
+                count++; 
+            }
+        return count == 0 ? 0.0 : sum/count;
+    }
+
+    public static int countCourses(Professor p) {
+        int count=0;
+        for(Course c:courses) 
+            if(c.getProfessor().equals(p)) 
                 count++;
-            }
-        }
-        return count == 0 ? 0 : (double) sum / count;
-    }
-
-    // Vidēja atzīme ar kredītpunktiem 
-    public static double calcWeightedAvgGrade(Student s) {
-        int totalPoints = 0;
-        int totalCredits = 0;
-        for (Grade g : gradeLists) {
-            if (g.getStudent() == s) {
-                int credits = g.getCourse().getCreditPoints();
-                totalPoints += g.getValue() * credits;
-                totalCredits += credits;
-            }
-        }
-        return totalCredits == 0 ? 0 : (double) totalPoints / totalCredits;
-    }
-
-    // Vidēja atzīme kursam
-    public static double calcAvgGradeForCourse(Course c) {
-        int sum = 0;
-        int count = 0;
-        for (Grade g : gradeLists) {
-            if (g.getCourse() == c) {
-                sum += g.getValue();
-                count++;
-            }
-        }
-        // Atgriež 0, citādi aprēķina vidējo
-        return count == 0 ? 0 : (double) sum / count;
-    }
-
-    // Kursu skaits professoram
-    public static int countCoursesForProfessor(Professor p) {
-        int count = 0;
-        for (Course c : courseLists) {
-            if (c.getProfessor() == p) { 
-            	count++;
-            }
-        }
         return count;
     }
 
-    // CRUD metode
-    // C - create
-    public static void createStudent(Student s) {
-        studentLists.add(s);
-    }
-
-    public static void createProfessor(Professor p) {
-        profLists.add(p);
-    }
-
-    public static void createCourse(Course c) {
-        courseLists.add(c);
-    }
-
-    public static void createGrade(Grade g) {
-        gradeLists.add(g);
-    }
-
-    // R - retrieve
-    public static void retrieveStudents() {
-        for (Student s : studentLists) {
-            System.out.println(s);
-        }
-    }
-
-    public static void retrieveProfessors() {
-        for (Professor p : profLists) {
-            System.out.println(p);
-        }
-    }
-
-    public static void retrieveCourses() {
-        for (Course c : courseLists) {
-            System.out.println(c);
-        }
-    }
-
-    public static void retrieveGrades() {
-        for (Grade g : gradeLists) {
-            System.out.println(g);
-        }
-    }
-
-    // U - update
-    public static void updateStudent(Student s, String name, String surname) {
-        if (studentLists.contains(s)) {
-            s.setName(name);
-            s.setSurname(surname);
-        }
-    }
-
-    // D - delete
-    public static void deleteStudent(Student s) {
-        studentLists.remove(s);
-    }
-
-    public static void deleteProfessor(Professor p) {
-        profLists.remove(p);
-    }
-
-    public static void deleteCourse(Course c) {
-        courseLists.remove(c);
-    }
-
-    public static void deleteGrade(Grade g) {
-        gradeLists.remove(g);
+    public static void sortStudents() {
+        students.sort(Comparator.comparingDouble(VeA_IS::avgGrade).reversed());
     }
 }

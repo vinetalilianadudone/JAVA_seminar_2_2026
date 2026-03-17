@@ -2,74 +2,70 @@ package model;
 
 public class Grade {
 
-    private static long idCounter = 200000;
-
-    private long g_ID;
-    private int value;
+	// variables
+    private long gradeId;
+    private int gradeValue;
     private Student student;
     private Course course;
+    private static long counter = 200000;
 
-    // No-argument constructor
+    // get and set methods
+    public long getGradeId() {
+    	return gradeId; 
+    	}
+    
+    public int getGradeValue() { 
+    	return gradeValue; 
+    	}
+    
+    public Student getStudent() { 
+    	return student; 
+    	}
+    
+    public Course getCourse() { 
+    	return course; 
+    	}
+
+    private void generateId() {
+        gradeId = counter++;
+    }
+
+    public void setGradeValue(int value) {
+        if (value >= 1 && value <= 10) 
+        	gradeValue = value;
+        else 
+        	throw new IllegalArgumentException("Nepareiza atzīme");
+    }
+
+    public void setStudent(Student stud) {
+        if (stud != null) 
+        	student = stud;
+        else 
+        	throw new IllegalArgumentException("Students nevar būt null");
+    }
+
+    public void setCourse(Course c) {
+        if (c != null) 
+        	course = c;
+        else 
+        	throw new IllegalArgumentException("Kurss nevar būt null");
+    }
+
+    // no-argument constructor
     public Grade() {
-        idCounter++;
-        this.g_ID = idCounter;
-        this.value = 4;
-        this.student = new Student();
-        this.course = new Course();
+        this(1, new Student(), new Course());
+    }
+ 
+    // argument constructor
+    public Grade(int value, Student stud, Course c) {
+        generateId();
+        setGradeValue(value);
+        setStudent(stud);
+        setCourse(c);
     }
 
-    // Argument constructor
-    public Grade(int value, Student student, Course course) {
-        idCounter++;
-        this.g_ID = idCounter;
-        this.value = value;
-        this.student = student;
-        this.course = course;
-    }
-
-    // Get method
-    public long getGID() {
-        return g_ID;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    // Set method
-    public void setValue(int inputValue) {
-        if (inputValue >= 1 && inputValue <= 10)
-            this.value = inputValue;
-        else
-            this.value = 4;
-    }
-
-    public void setStudent(Student inputStudent) {
-        if (inputStudent != null)
-            this.student = inputStudent;
-        else
-            this.student = new Student();
-    }
-
-    public void setCourse(Course inputCourse) {
-        if (inputCourse != null)
-            this.course = inputCourse;
-        else
-            this.course = new Course();
-    }
-
-    // toString method
+    // to string method
     public String toString() {
-        return "Grade ID: " + g_ID + ", Value: " + value +
-                ", Student: " + student +
-                ", Course: " + course.getTitle();
+        return gradeId + ": " + student.getSurname() + " -> " + gradeValue + " (" + course.getTitle() + ")";
     }
 }
